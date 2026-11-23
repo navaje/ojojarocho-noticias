@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Medio de prueba</title>
+    <link>https://ejemplo.mx</link>
+    <description>Feed de prueba</description>
+    <item>
+      <title><![CDATA[Accidente múltiple en la carretera Xalapa-Veracruz a la altura de Cardel]]></title>
+      <link>https://ejemplo.mx/nota-1</link>
+      <guid>https://ejemplo.mx/nota-1</guid>
+      <pubDate>Sat, 23 Nov 2026 10:00:00 -0600</pubDate>
+      <description><![CDATA[Reportan un choque múltiple sobre la carretera federal 140, a la altura de Cardel, con varios lesionados.]]></description>
+      <content:encoded><![CDATA[<p>Reportan un <strong>choque múltiple</strong> sobre la carretera federal 140, a la altura de Cardel, con varios lesionados y cierre parcial de la vialidad.</p>]]></content:encoded>
+    </item>
+    <item>
+      <title><![CDATA[Asesinan a joven en colonia Centro de Xalapa]]></title>
+      <link>https://ejemplo.mx/nota-2</link>
+      <guid>https://ejemplo.mx/nota-2</guid>
+      <pubDate>Sat, 23 Nov 2026 09:30:00 -0600</pubDate>
+      <description><![CDATA[La Fiscalía General del Estado investiga el homicidio ocurrido en la capital del estado.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Frente frío número 8 afectará la zona centro de Veracruz este fin de semana]]></title>
+      <link>https://ejemplo.mx/nota-3</link>
+      <guid>https://ejemplo.mx/nota-3</guid>
+      <pubDate>Sat, 23 Nov 2026 08:00:00 -0600</pubDate>
+      <description><![CDATA[Protección Civil pide precauciones ante lluvias y vientos en el puerto de Veracruz.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Mercado bursátil de Estados Unidos cierra al alza]]></title>
+      <link>https://ejemplo.mx/nota-4</link>
+      <guid>https://ejemplo.mx/nota-4</guid>
+      <pubDate>Sat, 23 Nov 2026 07:00:00 -0600</pubDate>
+      <description><![CDATA[Los principales índices cerraron la jornada con ganancias.]]></description>
+    </item>
+  </channel>
+</rss>
