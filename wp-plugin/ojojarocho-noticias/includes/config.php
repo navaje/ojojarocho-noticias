@@ -5,8 +5,6 @@ function ojn_feeds() {
     return array(
         array('name' => 'Imagen del Golfo', 'url' => 'https://imagendelgolfo.mx/rss/feed.xml'),
         array('name' => 'Palabras Claras (Veracruz)', 'url' => 'https://palabrasclaras.mx/feed/'),
-        array('name' => 'Gobierno de Veracruz', 'url' => 'https://www.veracruz.gob.mx/feed/'),
-        array('name' => 'Protección Civil Veracruz', 'url' => 'https://www.veracruz.gob.mx/proteccioncivil/feed/'),
         array('name' => 'El Dictamen (Veracruz)', 'url' => 'https://www.eldictamen.mx/feed/'),
         array('name' => 'Foro Coatza', 'url' => 'https://forocoatza.com/feed/'),
         array('name' => 'Presencia (Xalapa)', 'url' => 'https://www.presencia.mx/feed/'),
