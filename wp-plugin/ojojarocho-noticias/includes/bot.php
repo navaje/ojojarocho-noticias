@@ -22,18 +22,25 @@ function ojn_resumen($html, $max = 280) {
     return rtrim($cut, " ,;:") . '…';
 }
 
+function ojn_match($text, $key) {
+    $key = ojn_normalize($key);
+    if ($key === '') { return false; }
+    if (substr($key, -1) === ' ') { return mb_strpos($text, $key) !== false; }
+    return preg_match('/\b' . preg_quote($key, '/') . '\b/u', $text) === 1;
+}
+
 function ojn_classify($title, $body) {
     $text = ojn_normalize($title . ' ' . $body);
     $lugar = null;
     foreach (ojn_geo() as $g) {
-        if (mb_strpos($text, $g['key']) !== false) { $lugar = $g['name']; break; }
+        if (ojn_match($text, $g['key'])) { $lugar = $g['name']; break; }
     }
     $tipos = ojn_tipos();
     $tipo = 'general';
     foreach (ojn_tipo_order() as $name) {
         $kws = isset($tipos[$name]) ? $tipos[$name]['keywords'] : array();
         foreach ($kws as $k) {
-            if (mb_strpos($text, ojn_normalize($k)) !== false) { $tipo = $name; break 2; }
+            if (ojn_match($text, $k)) { $tipo = $name; break 2; }
         }
     }
     $auto_types = get_option('ojn_auto_types', ojn_default_auto_types());
@@ -74,7 +81,7 @@ function ojn_http_get($url) {
     return $body;
 }
 
-function ojn_fetch($url) {
+function ojn_fetch_direct($url) {
     $r = wp_remote_get($url, array(
         'timeout' => 20,
         'redirection' => 5,
@@ -92,6 +99,14 @@ function ojn_fetch($url) {
     if ($code >= 200 && $code < 300) { return wp_remote_retrieve_body($r); }
     ojn_log('HTTP ' . $code . ' ' . $url . ' -> reintento con streams');
     return ojn_http_get($url);
+}
+
+function ojn_fetch($url) {
+    $body = ojn_fetch_direct($url);
+    if ($body !== null) { return $body; }
+    $proxy = 'https://api.allorigins.win/raw?url=' . urlencode($url);
+    ojn_log('reintento via allorigins: ' . $url);
+    return ojn_fetch_direct($proxy);
 }
 
 function ojn_parse_feed($xmlstr) {
