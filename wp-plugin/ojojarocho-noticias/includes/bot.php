@@ -102,11 +102,7 @@ function ojn_fetch_direct($url) {
 }
 
 function ojn_fetch($url) {
-    $body = ojn_fetch_direct($url);
-    if ($body !== null) { return $body; }
-    $proxy = 'https://api.allorigins.win/raw?url=' . urlencode($url);
-    ojn_log('reintento via allorigins: ' . $url);
-    return ojn_fetch_direct($proxy);
+    return ojn_fetch_direct($url);
 }
 
 function ojn_parse_feed($xmlstr) {
@@ -121,7 +117,7 @@ function ojn_parse_feed($xmlstr) {
             $body = (string) $it->children('http://purl.org/rss/1.0/modules/content/')->encoded;
             if (!$body) { $body = (string) $it->description; }
             if ($title && $link) {
-                $items[] = array('title' => $title, 'url' => $link, 'body' => $body, 'published' => (string) $it->pubDate);
+                $items[] = array('title' => $title, 'url' => $link, 'body' => $body, 'published' => (string) $it->pubDate, 'source' => (string) $it->source);
             }
         }
     } else {
@@ -317,10 +313,11 @@ function ojn_run_bot($manual = false) {
             if (!$cls['local']) { $skipped++; continue; }
             $hash = sha1(ojn_normalize($item['url'] ? $item['url'] : $item['title']));
             if (ojn_seen_has($hash)) { $skipped++; continue; }
-            $oficial = ojn_is_official($feed['name']);
+            $fuente = !empty($item['source']) ? $item['source'] : $feed['name'];
+            $oficial = ojn_is_official($feed['name']) || ojn_is_official($fuente);
             $resumen = ojn_resumen($item['body']);
             $titulo = $cls['emoji'] . ' ' . $item['title'];
-            $content = ojn_build_content($cls['lugar'], $resumen, $feed['name'], $item['url'], $oficial, $cls['emoji']);
+            $content = ojn_build_content($cls['lugar'], $resumen, $fuente, $item['url'], $oficial, $cls['emoji']);
             $post_id = wp_insert_post(array(
                 'post_title' => $titulo,
                 'post_content' => $content,
@@ -334,13 +331,13 @@ function ojn_run_bot($manual = false) {
                     '_oj_label' => $cls['label'],
                     '_oj_emoji' => $cls['emoji'],
                     '_oj_lugar' => (string) $cls['lugar'],
-                    '_oj_fuente' => $feed['name'],
+                    '_oj_fuente' => $fuente,
                     '_oj_url_fuente' => $item['url'],
                 ),
             ), true);
             if (is_wp_error($post_id)) { ojn_log('Error al crear post: ' . $post_id->get_error_message()); continue; }
             $media = null;
-            $png = ojn_make_card_png($cls['tipo'], $cls['label'], $cls['lugar'], $item['title'], $feed['name'], $fecha, $site);
+            $png = ojn_make_card_png($cls['tipo'], $cls['label'], $cls['lugar'], $item['title'], $fuente, $fecha, $site);
             if ($png) {
                 $media = ojn_upload_card($png, $titulo);
                 if ($media && !empty($media['id'])) { set_post_thumbnail($post_id, $media['id']); }
@@ -350,7 +347,7 @@ function ojn_run_bot($manual = false) {
             if ($cls['status'] === 'publish') {
                 $published++;
                 ojn_log('PUBLICADO: ' . $post_url . ' (' . $cls['lugar'] . ')');
-                ojn_social_crosspost($cls['emoji'], $cls['label'], $cls['lugar'], $item['title'], $post_url, $feed['name'], $media ? $media['url'] : null);
+                ojn_social_crosspost($cls['emoji'], $cls['label'], $cls['lugar'], $item['title'], $post_url, $fuente, $media ? $media['url'] : null);
             } else {
                 $pending++;
                 ojn_log('PENDIENTE (revisión): ID ' . $post_id . ' — ' . $item['title']);
