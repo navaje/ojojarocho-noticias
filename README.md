@@ -29,20 +29,28 @@ wp-plugin/ojojarocho-noticias/   plugin de WordPress (shortcodes, schema, estilo
 docs/                 guías paso a paso de instalación y configuración
 ```
 
-## Orden recomendado de instalación
+## Instalación recomendada (sin terminal/SSH)
 
-1. [docs/01-INSTALACION_HOSTING.md](docs/01-INSTALACION_HOSTING.md) — subir el repo al hosting, entorno virtual, `.env`, prueba en seco y cron.
-2. [docs/02-CONFIG_WORDPRESS.md](docs/02-CONFIG_WORDPRESS.md) — Application Password, instalar el plugin, crear la página "Noticias de hoy", menú y sección en la portada.
-3. [docs/03-CONFIG_META_FACEBOOK_INSTAGRAM.md](docs/03-CONFIG_META_FACEBOOK_INSTAGRAM.md) — app de Meta, token de página y cuenta de Instagram para el cross-post.
-4. [docs/04-REGLAS_Y_SEGURIDAD.md](docs/04-REGLAS_Y_SEGURIDAD.md) — qué se publica automático, cómo aprobar pendientes, política de nota roja, derechos de autor y seguridad de credenciales.
+Todo dentro de WordPress como plugin (sirve en HostGator aunque el shell esté bloqueado):
 
-## Prueba rápida local (sin tocar WordPress)
+1. Descarga el plugin listo: [ojojarocho-noticias-plugin.zip](https://github.com/navaje/ojojarocho-noticias/raw/vibe/noticias-locales-6676d1/ojojarocho-noticias-plugin.zip)
+2. wp-admin → Plugins → Añadir nuevo → Subir plugin → instalar → **activar**
+3. wp-admin → **Noticias bot** → "Buscar noticias y publicar ahora" para probar
+4. Crea la página "Noticias de hoy" con `[noticias_hoy limite="12"]`, ponla en el menú, y `[noticias_recientes n="5"]` en la portada
+5. (Opcional) Configura Facebook/Instagram en Noticias bot → Configuración
+
+Guía detallada paso a paso: [docs/05-INSTALACION_PLUGIN_SIN_SSH.md](docs/05-INSTALACION_PLUGIN_SIN_SSH.md)
+
+## Instalación alternativa (con SSH en el hosting)
+
+Si tu hosting tiene shell habilitado, puedes correr el bot en Python con cron del sistema: ver [docs/01-INSTALACION_HOSTING.md](docs/01-INSTALACION_HOSTING.md). El código Python está en `bot/`.
+
+## Prueba rápida local (solo si tienes Python)
 
 ```bash
-python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
-python -m unittest discover -s tests -v          # pruebas unitarias
-python -m bot --dry-run --local-feeds tests/fixtures/sample_feed.xml   # simula una corrida
+python -m unittest discover -s tests -v
+python -m bot --dry-run --local-feeds tests/fixtures/sample_feed.xml
 ```
 
 ## Reglas de publicación (editables en `bot/config.json`)
