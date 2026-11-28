@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+data/
+logs/
+cards/
+venv/
+__pycache__/
+*.pyc
+*.db
+.DS_Store
+.htaccess.local
