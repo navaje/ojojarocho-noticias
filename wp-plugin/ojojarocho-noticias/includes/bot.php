@@ -64,15 +64,21 @@ function ojn_http_get($url) {
         'follow_location' => 1,
         'max_redirects' => 5,
         'header' => "User-Agent: $ua\r\nAccept: application/rss+xml, application/atom+xml, application/xml, text/xml, */*\r\n",
-    ), 'ssl' => array('verify_peer' => true, 'verify_peer_name' => true)));
+    ), 'ssl' => array('verify_peer' => false, 'verify_peer_name' => false)));
     $body = @file_get_contents($url, false, $ctx);
-    return $body === false ? null : $body;
+    if ($body === false) {
+        $e = error_get_last();
+        ojn_log('streams err [' . ($e ? $e['message'] : 'desconocido') . '] ' . $url);
+        return null;
+    }
+    return $body;
 }
 
 function ojn_fetch($url) {
     $r = wp_remote_get($url, array(
         'timeout' => 20,
         'redirection' => 5,
+        'sslverify' => false,
         'headers' => array(
             'User-Agent' => 'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0 ojojarocho-noticias-bot/2.0',
             'Accept' => 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*',
