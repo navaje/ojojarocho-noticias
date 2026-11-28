@@ -2,12 +2,17 @@
 if (!defined('ABSPATH')) { exit; }
 
 function ojn_feeds() {
+    $gn = '?hl=es-419&gl=MX&ceid=MX:es-419';
     return array(
-        array('name' => 'Imagen del Golfo', 'url' => 'https://imagendelgolfo.mx/rss/feed.xml'),
         array('name' => 'Palabras Claras (Veracruz)', 'url' => 'https://palabrasclaras.mx/feed/'),
-        array('name' => 'El Dictamen (Veracruz)', 'url' => 'https://www.eldictamen.mx/feed/'),
-        array('name' => 'Foro Coatza', 'url' => 'https://forocoatza.com/feed/'),
-        array('name' => 'Presencia (Xalapa)', 'url' => 'https://www.presencia.mx/feed/'),
+        array('name' => 'Google News: Cardel', 'url' => 'https://news.google.com/rss/search?q=Cardel%20Veracruz&hl=es-419&gl=MX&ceid=MX:es-419'),
+        array('name' => 'Google News: alrededores Cardel', 'url' => 'https://news.google.com/rss/search?q=Alto%20Lucero%20Veracruz%20OR%20La%20Antigua%20Veracruz%20OR%20Puente%20Nacional%20Veracruz%20OR%20Emiliano%20Zapata%20Veracruz' . $gn),
+        array('name' => 'Google News: Xalapa', 'url' => 'https://news.google.com/rss/search?q=Xalapa%20Veracruz' . $gn),
+        array('name' => 'Google News: Veracruz puerto', 'url' => 'https://news.google.com/rss/search?q=Veracruz%20puerto%20OR%20Boca%20del%20R%C3%ADo%20OR%20Medell%C3%ADn' . $gn),
+        array('name' => 'Google News: carretera Xalapa-Veracruz', 'url' => 'https://news.google.com/rss/search?q=carretera%20Xalapa%20Veracruz%20accidente%20OR%20cierre%20OR%20bloqueo%20OR%20tr%C3%A1fico%20OR%20carretera%20140' . $gn),
+        array('name' => 'Google News: vialidad zona centro', 'url' => 'https://news.google.com/rss/search?q=accidente%20OR%20choque%20OR%20volcadura%20OR%20cierre%20carretera%20Veracruz%20Xalapa%20Cardel' . $gn),
+        array('name' => 'Google News: nota roja zona', 'url' => 'https://news.google.com/rss/search?q=homicidio%20OR%20balacera%20OR%20asesinato%20OR%20secuestro%20Xalapa%20OR%20Veracruz%20OR%20Cardel%20OR%20Alto%20Lucero' . $gn),
+        array('name' => 'Google News: clima Veracruz', 'url' => 'https://news.google.com/rss/search?q=frente%20fr%C3%ADo%20OR%20alerta%20OR%20inundaci%C3%B3n%20OR%20deslave%20OR%20derrumbes%20Veracruz' . $gn),
     );
 }
 
