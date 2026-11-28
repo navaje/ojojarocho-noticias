@@ -68,7 +68,7 @@ function ojn_tipos() {
         ),
         'vialidad' => array(
             'label' => 'Alerta vial', 'emoji' => '🚧',
-            'keywords' => array('accidente','choque','carambola','volcadura','atropellado','cierre de circulacion','carretera cerrada','via cerrada','cierre vehicular','bloqueo','manifestacion en carretera','trafico','transito','congestion vial','derrumbes','deslizamiento','socavon','puente danado','vialidad','carretera federal','km '),
+            'keywords' => array('accidente','choque','carambola','volcadura','volcado','atropellado','lesionado','cierre de circulacion','carretera cerrada','via cerrada','cierre vehicular','bloqueo','manifestacion en carretera','trafico','transito','congestion vial','derrumbes','deslizamiento','socavon','bache','puente danado','vialidad','carretera','autopista','km '),
         ),
         'clima' => array(
             'label' => 'Clima', 'emoji' => '⛈️',
