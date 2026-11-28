@@ -36,6 +36,7 @@ function ojn_admin_page() {
     <div class="wrap">
         <h1>📰 Noticias bot — ojojarocho.online</h1>
         <p>Última corrida automática: <strong><?php echo esc_html($last); ?></strong></p>
+        <p style="color:#666">Diagnóstico del servidor: cURL=<?php echo function_exists('curl_init') ? 'sí' : 'NO'; ?> · allow_url_fopen=<?php echo (ini_get('allow_url_fopen') ? 'sí' : 'NO'); ?></p>
         <p>El bot corre solo cada 30 minutos (WP-Cron). Si tu sitio recibe visitas, se ejecuta al vuelo; si no, configura un cron externo que pegue <code>https://<?php echo esc_html(parse_url(home_url(), PHP_URL_HOST)); ?>/wp-cron.php</code> cada 30 min.</p>
 
         <h2>▶ Ejecutar ahora</h2>
