@@ -1,4 +1,6 @@
-# 01 — Instalación en el hosting (cron)
+# 01 — Instalación en el hosting con SSH (Python + cron del sistema)
+
+> ⚠ **Solo si tu hosting tiene SSH/shell habilitado.** En HostGator con shell deshabilitado ("Shell access is not enabled on your account") esta vía NO funciona. En ese caso usa la guía recomendada: **[05-INSTALACION_PLUGIN_SIN_SSH.md](05-INSTALACION_PLUGIN_SIN_SSH.md)** (todo dentro de WordPress, sin terminal).
 
 Requisitos del hosting: acceso SSH, **Python 3.9+**, `pip`, y cron habilitado. Todo se instala **fuera de `public_html`** (por ejemplo en `/home/tuusuario/ojojarocho-noticias`).
 
