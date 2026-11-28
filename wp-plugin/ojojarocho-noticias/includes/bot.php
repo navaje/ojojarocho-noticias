@@ -26,7 +26,7 @@ function ojn_match($text, $key) {
     $key = ojn_normalize($key);
     if ($key === '') { return false; }
     if (substr($key, -1) === ' ') { return mb_strpos($text, $key) !== false; }
-    return preg_match('/\b' . preg_quote($key, '/') . '\b/u', $text) === 1;
+    return preg_match('/\b' . preg_quote($key, '/') . '(?:s|es)?\b/u', $text) === 1;
 }
 
 function ojn_classify($title, $body) {
@@ -44,7 +44,7 @@ function ojn_classify($title, $body) {
         }
     }
     $auto_types = get_option('ojn_auto_types', ojn_default_auto_types());
-    $auto = in_array($tipo, (array) $auto_types, true);
+    $auto = in_array($tipo, (array) $auto_types, true) && $tipo !== 'seguridad';
     return array(
         'local' => $lugar !== null,
         'lugar' => $lugar,
@@ -314,6 +314,7 @@ function ojn_run_bot($manual = false) {
             $hash = sha1(ojn_normalize($item['url'] ? $item['url'] : $item['title']));
             if (ojn_seen_has($hash)) { $skipped++; continue; }
             $fuente = !empty($item['source']) ? $item['source'] : $feed['name'];
+            if (preg_match('/accuweather|weather\.com|elclima/i', $fuente)) { ojn_mark_seen($hash); $skipped++; continue; }
             $oficial = ojn_is_official($feed['name']) || ojn_is_official($fuente);
             $resumen = ojn_resumen($item['body']);
             $titulo = $cls['emoji'] . ' ' . $item['title'];
